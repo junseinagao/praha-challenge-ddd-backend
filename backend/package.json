@@ -1,0 +1,72 @@
+{
+  "name": "praha-challenge-ddd-backend-template",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "node": "18.x.x"
+  },
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "nest build",
+    "gcp-build": "pnpm build",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "start": "STAGE=production node dist/src/main",
+    "dev": "dotenv -e .local.env -- nest start --watch",
+    "dev:debug": "dotenv -e .local.env -- nest start --debug --watch",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+    "lint:fix": "pnpm lint --fix",
+    "migrate:dev": "dotenv -e .local.env -- prisma migrate dev --preview-feature",
+    "model-generate": "prisma generate",
+    "migrate:dev:reset": "dotenv -e .local.env -- prisma migrate reset --preview-feature",
+    "migrate:test": "dotenv -e .test.env -- prisma migrate reset --force --preview-feature",
+    "migrate:prd": "prisma migrate deploy --preview-feature",
+    "test:unit": "dotenv -e .test.env -- jest",
+    "test:integration": "pnpm migrate:test && dotenv -e .test.env -- jest -c ./jest.integration.config.js --runInBand"
+  },
+  "dependencies": {
+    "@nestjs/common": "^9.3.12",
+    "@nestjs/core": "^9.3.12",
+    "@nestjs/platform-express": "^9.3.12",
+    "@nestjs/swagger": "^6.3.0",
+    "@prisma/client": "4.12.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "csv": "^6.2.8",
+    "dotenv": "^16.0.3",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^4.4.1",
+    "rxjs": "^7.8.0",
+    "swagger-ui-express": "^4.6.2",
+    "uuidv4": "^6.2.13"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@nestjs/cli": "^9.3.0",
+    "@nestjs/schematics": "^9.1.0",
+    "@nestjs/testing": "^9.3.12",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.11",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "dotenv-cli": "^7.1.0",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "8.8.0",
+    "jest": "^29.5.0",
+    "prettier": "^2.8.7",
+    "prisma": "4.12.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.0",
+    "ts-loader": "^9.4.2",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.0.3"
+  },
+  "volta": {
+    "node": "18.15.0"
+  }
+}

@@ -1,0 +1,22 @@
+name: backend CI
+
+on: [push, pull_request]
+
+jobs:
+  lint_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - run: |
+          docker-compose -f ./.docker/docker-compose.yml build
+          docker-compose -f ./.docker/docker-compose.yml up -d
+          cd ./backend
+          npm i -g pnpm
+          pnpm install --frozen-lockfile
+          pnpm lint
+          pnpm test:unit
+          pnpm test:integration

@@ -1,0 +1,15 @@
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  previewFeatures = ["nativeTypes"]
+  provider        = "prisma-client-js"
+}
+
+model SomeData {
+  id        String    @id
+  required Boolean
+  number   Int     @db.SmallInt
+}
