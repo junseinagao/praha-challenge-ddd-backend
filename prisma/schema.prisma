@@ -4,12 +4,59 @@ datasource db {
 }
 
 generator client {
-  previewFeatures = ["nativeTypes"]
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
-model SomeData {
-  id        String    @id
-  required Boolean
-  number   Int     @db.SmallInt
+model Particient {
+  id               String           @id @default(uuid())
+  name             String
+  email            String           @unique
+  membershipStatus MembershipStatus @default(ACTIVE)
+  Team             Team?            @relation(fields: [teamId], references: [id])
+  teamId           String?
+  Pair             Pair?            @relation(fields: [pairId], references: [id])
+  pairId           String?
+  ParticientTask   ParticientTask[]
+}
+
+enum MembershipStatus {
+  ACTIVE
+  PENDING
+  INACTIVE
+}
+
+model Team {
+  id          String       @id @default(uuid())
+  name        String
+  particients Particient[]
+  Pair        Pair[]
+}
+
+model Pair {
+  id          String       @id @default(uuid())
+  particients Particient[]
+  teamId      String
+  team        Team         @relation(fields: [teamId], references: [id])
+}
+
+model ParticientTask {
+  id           String     @id @default(uuid())
+  particient   Particient @relation(fields: [particientId], references: [id])
+  particientId String
+  task         Task       @relation(fields: [taskId], references: [id])
+  taskId       String
+  status       TaskStatus @default(TODO)
+}
+
+enum TaskStatus {
+  TODO
+  IN_REVIEW
+  DONE
+}
+
+model Task {
+  id             String           @id @default(uuid())
+  title          String
+  description    String
+  ParticientTask ParticientTask[]
 }
