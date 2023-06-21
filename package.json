@@ -33,7 +33,6 @@
     "@prisma/client": "4.16.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
-    "csv": "^6.3.1",
     "dotenv": "^16.3.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^5.0.1",
