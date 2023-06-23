@@ -10,7 +10,6 @@ CREATE TABLE "Particient" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "membershipStatus" "MembershipStatus" NOT NULL DEFAULT 'ACTIVE',
-    "teamId" TEXT,
     "pairId" TEXT,
 
     CONSTRAINT "Particient_pkey" PRIMARY KEY ("id")
@@ -33,20 +32,11 @@ CREATE TABLE "Pair" (
 );
 
 -- CreateTable
-CREATE TABLE "ParticientTask" (
-    "id" TEXT NOT NULL,
-    "particientId" TEXT NOT NULL,
-    "taskId" TEXT NOT NULL,
-    "status" "TaskStatus" NOT NULL DEFAULT 'TODO',
-
-    CONSTRAINT "ParticientTask_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Task" (
     "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
+    "particientId" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "status" "TaskStatus" NOT NULL DEFAULT 'TODO',
 
     CONSTRAINT "Task_pkey" PRIMARY KEY ("id")
 );
@@ -55,16 +45,10 @@ CREATE TABLE "Task" (
 CREATE UNIQUE INDEX "Particient_email_key" ON "Particient"("email");
 
 -- AddForeignKey
-ALTER TABLE "Particient" ADD CONSTRAINT "Particient_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Particient" ADD CONSTRAINT "Particient_pairId_fkey" FOREIGN KEY ("pairId") REFERENCES "Pair"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Pair" ADD CONSTRAINT "Pair_teamId_fkey" FOREIGN KEY ("teamId") REFERENCES "Team"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ParticientTask" ADD CONSTRAINT "ParticientTask_particientId_fkey" FOREIGN KEY ("particientId") REFERENCES "Particient"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "ParticientTask" ADD CONSTRAINT "ParticientTask_taskId_fkey" FOREIGN KEY ("taskId") REFERENCES "Task"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Task" ADD CONSTRAINT "Task_particientId_fkey" FOREIGN KEY ("particientId") REFERENCES "Particient"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

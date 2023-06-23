@@ -12,11 +12,9 @@ model Particient {
   name             String
   email            String           @unique
   membershipStatus MembershipStatus @default(ACTIVE)
-  Team             Team?            @relation(fields: [teamId], references: [id])
-  teamId           String?
   Pair             Pair?            @relation(fields: [pairId], references: [id])
   pairId           String?
-  ParticientTask   ParticientTask[]
+  tasks            Task[]
 }
 
 enum MembershipStatus {
@@ -26,25 +24,23 @@ enum MembershipStatus {
 }
 
 model Team {
-  id          String       @id @default(uuid())
-  name        String
-  particients Particient[]
-  Pair        Pair[]
+  id   String @id @default(uuid())
+  name String
+  Pair Pair[]
 }
 
 model Pair {
   id          String       @id @default(uuid())
   particients Particient[]
   teamId      String
-  team        Team         @relation(fields: [teamId], references: [id])
+  Team        Team         @relation(fields: [teamId], references: [id])
 }
 
-model ParticientTask {
+model Task {
   id           String     @id @default(uuid())
   particient   Particient @relation(fields: [particientId], references: [id])
   particientId String
-  task         Task       @relation(fields: [taskId], references: [id])
-  taskId       String
+  name         String
   status       TaskStatus @default(TODO)
 }
 
@@ -52,11 +48,4 @@ enum TaskStatus {
   TODO
   IN_REVIEW
   DONE
-}
-
-model Task {
-  id             String           @id @default(uuid())
-  title          String
-  description    String
-  ParticientTask ParticientTask[]
 }
