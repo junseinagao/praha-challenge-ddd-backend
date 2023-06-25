@@ -7,6 +7,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator prismaClassGenerator {
+  provider = "prisma-class-generator"
+}
+
 model Particient {
   id               String           @id @default(uuid())
   name             String

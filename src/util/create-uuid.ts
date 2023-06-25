@@ -1,5 +1,5 @@
 import { uuid } from 'uuidv4'
 
-export const createRandomIdString = () => {
+export const createUuid = () => {
   return uuid()
 }
