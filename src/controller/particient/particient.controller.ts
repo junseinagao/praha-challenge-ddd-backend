@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Get, Post, Put } from '@nestjs/common'
 import { ApiResponse } from '@nestjs/swagger'
 import { PrismaClient } from '@prisma/client'
 import { GetAllParticientsResponse } from './get-all-particients-response'
@@ -11,6 +11,10 @@ import {
 } from 'src/app/particient/post-create-particient'
 import { Particient } from './particient-schema'
 import { GetParticientResponse } from './get-particient-response'
+import {
+  PutChangeMembershipStatusDTO,
+  PutChangeMembershipStatusUsecase,
+} from 'src/app/particient/put-change-membership-status-usecase'
 
 @Controller({
   path: '/particients',
@@ -37,6 +41,21 @@ export class ParticientController {
     const particient = await usecase.do({
       name: postCreateParticientDto.name,
       email: postCreateParticientDto.email,
+    })
+    const response = new GetParticientResponse({ particient })
+    return response
+  }
+
+  @Put('/membership-status')
+  async putChangeMembershipStatus(
+    @Body() putChangeMembershipStatusDTO: PutChangeMembershipStatusDTO,
+  ): Promise<Particient> {
+    const prisma = new PrismaClient()
+    const repo = new ParticientRepository(prisma)
+    const usecase = new PutChangeMembershipStatusUsecase(repo)
+    const particient = await usecase.do({
+      id: putChangeMembershipStatusDTO.id,
+      membershipStatus: putChangeMembershipStatusDTO.membershipStatus,
     })
     const response = new GetParticientResponse({ particient })
     return response
