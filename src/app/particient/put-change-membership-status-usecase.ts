@@ -1,18 +1,5 @@
 import { IParticientRepository } from 'src/domain/domain-service/particient'
-
-import { ApiProperty } from '@nestjs/swagger'
-import { IsEnum, IsString } from 'class-validator'
-import { MembershipStatus } from '@prisma/client'
-
-export class PutChangeMembershipStatusDTO {
-  @ApiProperty()
-  @IsString()
-  id!: string
-  @ApiProperty()
-  @IsString()
-  @IsEnum(Object.values(MembershipStatus))
-  membershipStatus!: string
-}
+import { PutChangeMembershipStatusDTO } from 'src/dto'
 
 export class PutChangeMembershipStatusUsecase {
   private readonly particientRepo: IParticientRepository

@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { IParticientQueryService } from 'src/app/particient/get-all-particients-usecase'
-import { ParticientDTO } from 'src/app/particient/particient.dto'
+import { ParticientDTO } from 'src/dto/particient.dto'
 
 export class ParticientQueryService implements IParticientQueryService {
   private prismaClient: PrismaClient

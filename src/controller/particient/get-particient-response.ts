@@ -1,4 +1,4 @@
-import { ParticientDTO } from 'src/app/particient/particient.dto'
+import { ParticientDTO } from 'src/dto/particient.dto'
 import { Particient } from './particient-schema'
 
 export class GetParticientResponse extends Particient {

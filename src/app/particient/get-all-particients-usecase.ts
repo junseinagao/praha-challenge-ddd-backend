@@ -1,4 +1,4 @@
-import { ParticientDTO } from './particient.dto'
+import { ParticientDTO } from '../../dto/particient.dto'
 
 export interface IParticientQueryService {
   getAll(): Promise<ParticientDTO[]>

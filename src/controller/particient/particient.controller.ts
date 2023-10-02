@@ -18,11 +18,9 @@ import {
 } from 'src/app/particient/post-create-particient'
 import { Particient } from './particient-schema'
 import { GetParticientResponse } from './get-particient-response'
-import {
-  PutChangeMembershipStatusDTO,
-  PutChangeMembershipStatusUsecase,
-} from 'src/app/particient/put-change-membership-status-usecase'
-import { PutChangeParticientTaskStatusDTO } from 'src/app/particient-task/particient-task.dto'
+import { PutChangeMembershipStatusUsecase } from 'src/app/particient/put-change-membership-status-usecase'
+import { PutChangeParticientTaskStatusDTO } from 'src/dto/put-change-particient-task-status.dto'
+import { PutChangeMembershipStatusDTO } from 'src/dto'
 
 @Controller({
   path: '/particients',

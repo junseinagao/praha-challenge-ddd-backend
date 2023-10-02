@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { MembershipStatus } from '@prisma/client'
 import { Particient } from './particient-schema'
-import { ParticientDTO } from 'src/app/particient/particient.dto'
+import { ParticientDTO } from 'src/dto/particient.dto'
 
 export class GetAllParticientsResponse {
   @ApiProperty({ type: () => [Particient] })

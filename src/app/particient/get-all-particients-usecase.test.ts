@@ -1,6 +1,6 @@
 import { GetAllParticientsUsecase } from './get-all-particients-usecase'
 import { IParticientQueryService } from './get-all-particients-usecase'
-import { ParticientDTO } from './particient.dto'
+import { ParticientDTO } from '../../dto/particient.dto'
 import { MembershipStatus } from '@prisma/client'
 
 describe('GetAllParticientsUsecase', () => {
