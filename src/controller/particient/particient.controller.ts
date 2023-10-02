@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Post, Put } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  NotImplementedException,
+  Post,
+  Put,
+} from '@nestjs/common'
 import { ApiResponse } from '@nestjs/swagger'
 import { PrismaClient } from '@prisma/client'
 import { GetAllParticientsResponse } from './get-all-particients-response'
@@ -15,6 +22,7 @@ import {
   PutChangeMembershipStatusDTO,
   PutChangeMembershipStatusUsecase,
 } from 'src/app/particient/put-change-membership-status-usecase'
+import { PutChangeParticientTaskStatusDTO } from 'src/app/particient-task/particient-task.dto'
 
 @Controller({
   path: '/particients',
@@ -59,5 +67,17 @@ export class ParticientController {
     })
     const response = new GetParticientResponse({ particient })
     return response
+  }
+
+  @Get(':id/tasks')
+  async getParticientTasks() {
+    throw new NotImplementedException()
+  }
+
+  @Put(':id/tasks/:taskId')
+  async updateParticientTaskStatus(
+    @Body() putChangeParticientTaskStatusDTO: PutChangeParticientTaskStatusDTO,
+  ) {
+    throw new NotImplementedException()
   }
 }
