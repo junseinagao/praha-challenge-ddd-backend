@@ -9,5 +9,5 @@ export class PutChangeMembershipStatusDTO {
   @ApiProperty()
   @IsString()
   @IsEnum(Object.values(MembershipStatus))
-  membershipStatus!: string
+  membershipStatus!: MembershipStatus
 }

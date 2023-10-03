@@ -11,7 +11,7 @@ export class PutChangeMembershipStatusUsecase {
 
     const createdParticient = await this.particientRepo.changeMembershipStatus(
       id,
-      membershipStatus as 'ACTIVE' | 'PENDING' | 'INACTIVE', // MEMO: よりよい型付けの方法がないか確認する
+      membershipStatus,
     )
     return createdParticient
   }
