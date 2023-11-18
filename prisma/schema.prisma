@@ -16,7 +16,7 @@ model Particient {
   name             String
   email            String           @unique
   membershipStatus MembershipStatus @default(ACTIVE)
-  Pair             Pair?            @relation(fields: [pairId], references: [id])
+  pair             Pair?            @relation(fields: [pairId], references: [id])
   pairId           String?
   tasks            Task[]
 }
@@ -35,9 +35,10 @@ model Team {
 
 model Pair {
   id          String       @id @default(uuid())
+  name        String
   particients Particient[]
   teamId      String
-  Team        Team         @relation(fields: [teamId], references: [id])
+  team        Team         @relation(fields: [teamId], references: [id])
 }
 
 model Task {

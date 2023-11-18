@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { IParticientQueryService } from 'src/app/particient/get-all-particients-usecase'
-import { ParticientDTO } from 'src/dto/particient.dto'
+import { GetParticientResponseDTO } from 'src/dto/get-particient-response.dto'
 
 export class ParticientQueryService implements IParticientQueryService {
   private prismaClient: PrismaClient
@@ -8,11 +8,19 @@ export class ParticientQueryService implements IParticientQueryService {
     this.prismaClient = prismaClient
   }
 
-  public async getAll(): Promise<ParticientDTO[]> {
-    const allParticients = await this.prismaClient.particient.findMany()
+  public async getAll(): Promise<GetParticientResponseDTO[]> {
+    const allParticients = await this.prismaClient.particient.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        membershipStatus: true,
+      },
+    })
+
     return allParticients.map(
       (particientDataModel) =>
-        new ParticientDTO({
+        new GetParticientResponseDTO({
           ...particientDataModel,
         }),
     )

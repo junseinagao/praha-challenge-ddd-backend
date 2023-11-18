@@ -12,15 +12,14 @@ import { GetAllParticientsResponse } from './get-all-particients-response'
 import { ParticientQueryService } from 'src/infra/db/query-service/particient.qs'
 import { GetAllParticientsUsecase } from 'src/app/particient/get-all-particients-usecase'
 import { ParticientRepository } from 'src/infra/db/repository/particient.repository'
-import {
-  PostCreateParticientDTO,
-  PostCreateParticientUsecase,
-} from 'src/app/particient/post-create-particient'
+import { PostCreateParticientUsecase } from 'src/app/particient/post-create-particient-usecase'
 import { Particient } from './particient-schema'
 import { GetParticientResponse } from './get-particient-response'
 import { PutChangeMembershipStatusUsecase } from 'src/app/particient/put-change-membership-status-usecase'
 import { PutChangeParticientTaskStatusDTO } from 'src/dto/put-change-particient-task-status.dto'
-import { PutChangeMembershipStatusDTO } from 'src/dto'
+import { PostCreateParticientDTO, PutChangeMembershipStatusDTO } from 'src/dto'
+import { PairRepository } from 'src/infra/db/repository/pair.repository'
+import { TeamRepository } from 'src/infra/db/repository/team.repository'
 
 @Controller({
   path: '/particients',
@@ -42,13 +41,19 @@ export class ParticientController {
     @Body() postCreateParticientDto: PostCreateParticientDTO,
   ): Promise<Particient> {
     const prisma = new PrismaClient()
-    const repo = new ParticientRepository(prisma)
-    const usecase = new PostCreateParticientUsecase(repo)
+    const particinetRepo = new ParticientRepository(prisma)
+    const pairRepo = new PairRepository(prisma)
+    const teamRepo = new TeamRepository(prisma)
+    const usecase = new PostCreateParticientUsecase(
+      particinetRepo,
+      pairRepo,
+      teamRepo,
+    )
     const particient = await usecase.do({
       name: postCreateParticientDto.name,
       email: postCreateParticientDto.email,
     })
-    const response = new GetParticientResponse({ particient })
+    const response = new GetParticientResponse(particient)
     return response
   }
 
@@ -63,7 +68,7 @@ export class ParticientController {
       id: putChangeMembershipStatusDTO.id,
       membershipStatus: putChangeMembershipStatusDTO.membershipStatus,
     })
-    const response = new GetParticientResponse({ particient })
+    const response = new GetParticientResponse(particient)
     return response
   }
 

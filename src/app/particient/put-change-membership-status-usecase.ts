@@ -7,12 +7,9 @@ export class PutChangeMembershipStatusUsecase {
     this.particientRepo = particientRepo
   }
   public async do(params: PutChangeMembershipStatusDTO) {
-    const { id, membershipStatus } = params
-
-    const createdParticient = await this.particientRepo.changeMembershipStatus(
-      id,
-      membershipStatus,
-    )
-    return createdParticient
+    const { id } = params
+    const particient = await this.particientRepo.get(id)
+    const updaredParticient = await this.particientRepo.save(particient)
+    return updaredParticient
   }
 }
