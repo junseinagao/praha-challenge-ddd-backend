@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { MembershipStatus } from '@prisma/client'
 import { Particient } from './particient-schema'
-import { ParticientDTO } from 'src/app/particient/particient.dto'
+import { GetParticientResponseDTO } from 'src/dto/get-particient-response.dto'
 
 export class GetAllParticientsResponse {
   @ApiProperty({ type: () => [Particient] })
   particients: Particient[]
 
-  public constructor(params: { particients: ParticientDTO[] }) {
+  public constructor(params: { particients: GetParticientResponseDTO[] }) {
     const { particients } = params
     this.particients = particients.map(
       ({ id, name, email, membershipStatus }) => {

@@ -1,7 +1,7 @@
-import { ParticientDTO } from './particient.dto'
+import { GetParticientResponseDTO } from '../../dto/get-particient-response.dto'
 
 export interface IParticientQueryService {
-  getAll(): Promise<ParticientDTO[]>
+  getAll(): Promise<GetParticientResponseDTO[]>
 }
 
 export class GetAllParticientsUsecase {

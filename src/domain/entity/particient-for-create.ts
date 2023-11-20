@@ -1,26 +1,18 @@
 import { MembershipStatus } from '@prisma/client'
-import { Task } from './task'
+import { IBaseParticient } from './particient'
 import { Pair } from './pair'
+import { Task } from './task'
 
-export interface IBaseParticient {
-  readonly id: string
-  readonly name: string
-  readonly email: string
-  readonly membershipStatus: MembershipStatus
-  readonly pair: Pair | null
-  readonly tasks: Task[]
-}
-
-type ParticientProps = {
+type ParticientForCreateProps = {
   id: string
   name: string
   email: string
   membershipStatus: MembershipStatus
-  pair: Pair
+  pair: Pair | null
   tasks: Task[]
 }
 
-export class Particient implements IBaseParticient {
+export class ParticientForCreate implements IBaseParticient {
   public readonly id: string
   public readonly name: string
   public readonly email: string
@@ -28,7 +20,7 @@ export class Particient implements IBaseParticient {
   public readonly pair: Pair | null
   public readonly tasks: Task[]
 
-  constructor(props: ParticientProps) {
+  constructor(props: ParticientForCreateProps) {
     const { id, name, email, membershipStatus, pair, tasks } = props
     this.id = id
     this.name = name
@@ -38,18 +30,7 @@ export class Particient implements IBaseParticient {
     this.tasks = tasks
   }
 
-  getAllProperties() {
-    return {
-      id: this.id,
-      name: this.name,
-      email: this.email,
-      membershipStatus: this.membershipStatus,
-      pair: this.pair,
-      tasks: this.tasks,
-    }
-  }
-
-  getCreateProperties() {
+  getProperties() {
     // MEMO: 新しく Pair を作成するとき
     if (this.pair === null) {
       return {
